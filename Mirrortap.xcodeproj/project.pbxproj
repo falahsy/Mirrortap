@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1629A4FE228CD17100DBB9FE /* AnswerKeyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1629A4FD228CD17100DBB9FE /* AnswerKeyVC.swift */; };
 		167D2AA72288080700B85527 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167D2AA62288080700B85527 /* AppDelegate.swift */; };
 		167D2AA92288080700B85527 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167D2AA82288080700B85527 /* ViewController.swift */; };
 		167D2AAC2288080700B85527 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 167D2AAA2288080700B85527 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1629A4FD228CD17100DBB9FE /* AnswerKeyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerKeyVC.swift; sourceTree = "<group>"; };
 		167D2AA32288080700B85527 /* Mirrortap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mirrortap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		167D2AA62288080700B85527 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		167D2AA82288080700B85527 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				167D2AA62288080700B85527 /* AppDelegate.swift */,
 				167D2AA82288080700B85527 /* ViewController.swift */,
 				167D2AB82288289600B85527 /* ChoiceViewController.swift */,
+				1629A4FD228CD17100DBB9FE /* AnswerKeyVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			files = (
 				167D2AB92288289600B85527 /* ChoiceViewController.swift in Sources */,
 				16DB65D4228868A800BA0896 /* ShapesQuestion.swift in Sources */,
+				1629A4FE228CD17100DBB9FE /* AnswerKeyVC.swift in Sources */,
 				16DB65D22288671000BA0896 /* ShapesModel.swift in Sources */,
 				167D2AA92288080700B85527 /* ViewController.swift in Sources */,
 				167D2AA72288080700B85527 /* AppDelegate.swift in Sources */,
