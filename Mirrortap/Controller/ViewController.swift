@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     
     var timeRunning = false
     var timeCounter: Timer = Timer()
-    var timer = 2
+    var timer = 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,26 +37,26 @@ class ViewController: UIViewController {
     
     func createQuestion(){
         let question1 = ShapesQuestion(shapes: "shapes1_ori", shapesGrey: "shapes_Ask_Yellow")
-        let question2 = ShapesQuestion(shapes: "shapes2_ori", shapesGrey: "shapes_Ask_Blue")
-        let question3 = ShapesQuestion(shapes: "shapes3_ori", shapesGrey: "shapes_Ask_Yellow")
-        let question4 = ShapesQuestion(shapes: "shapes4_ori", shapesGrey: "shapes_Ask_Blue")
-        let question5 = ShapesQuestion(shapes: "shapes5_ori", shapesGrey: "shapes_Ask_Yellow")
-        let question6 = ShapesQuestion(shapes: "shapes6_ori", shapesGrey: "shapes_Ask_Yellow_Top")
-        let question7 = ShapesQuestion(shapes: "shapes7_ori", shapesGrey: "shapes_Ask_Blue_Top")
-        let question8 = ShapesQuestion(shapes: "shapes8_ori", shapesGrey: "shapes_Ask_Yellow_Top")
-        let question9 = ShapesQuestion(shapes: "shapes9_ori", shapesGrey: "shapes_Ask_Blue_Top")
-        let question10 = ShapesQuestion(shapes: "shapes10_ori", shapesGrey: "shapes_Ask_Yellow_Top")
+        let question2 = ShapesQuestion(shapes: "shapes_Ask_Blue", shapesGrey: "shapes2_ori")
+//        let question3 = ShapesQuestion(shapes: "shapes3_ori", shapesGrey: "shapes_Ask_Yellow")
+//        let question4 = ShapesQuestion(shapes: "shapes_Ask_Blue", shapesGrey: "shapes4_ori")
+//        let question5 = ShapesQuestion(shapes: "shapes5_ori", shapesGrey: "shapes_Ask_Yellow")
+//        let question6 = ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes6_ori")
+//        let question7 = ShapesQuestion(shapes: "shapes7_ori", shapesGrey: "shapes_Ask_Blue_Top")
+//        let question8 = ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes8_ori")
+//        let question9 = ShapesQuestion(shapes: "shapes9_ori", shapesGrey: "shapes_Ask_Blue_Top")
+//        let question10 = ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes10_ori")
         
         questionShapes.append(question1)
         questionShapes.append(question2)
-        questionShapes.append(question3)
-        questionShapes.append(question4)
-        questionShapes.append(question5)
-        questionShapes.append(question6)
-        questionShapes.append(question7)
-        questionShapes.append(question8)
-        questionShapes.append(question9)
-        questionShapes.append(question10)
+//        questionShapes.append(question3)
+//        questionShapes.append(question4)
+//        questionShapes.append(question5)
+//        questionShapes.append(question6)
+//        questionShapes.append(question7)
+//        questionShapes.append(question8)
+//        questionShapes.append(question9)
+//        questionShapes.append(question10)
     }
     
     func setImageQuestionView(currentQuestion: Int){
@@ -88,9 +88,14 @@ class ViewController: UIViewController {
     }
     
     @objc func counting(){
+        
+        if currentQuestion % 2 == 1 {
+            mirrorImageView.flash()
+        } else {
+            questionImageView.flash()
+        }
+        
         timer -= 1
-//        timerLabel.text = timer.description
-//        timerLabel.textColor = .white
         if timer == 0 {
             timeCounter.invalidate()
             timeRunning = true
@@ -107,5 +112,19 @@ class ViewController: UIViewController {
         let dest = segue.destination as! ChoiceViewController
         
         dest.currentQuestionChoice = self.currentQuestion
+    }
+}
+
+extension UIImageView {
+    func flash() {
+        let flash = CABasicAnimation(keyPath: "opacity")
+        flash.duration = 0.4
+        flash.fromValue = 1
+        flash.toValue = 0.5
+        flash.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        flash.autoreverses = true
+        flash.repeatCount = 3
+        
+        layer.add(flash, forKey: nil)
     }
 }
