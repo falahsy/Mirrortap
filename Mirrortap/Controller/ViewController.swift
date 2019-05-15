@@ -36,27 +36,16 @@ class ViewController: UIViewController {
     }
     
     func createQuestion(){
-        let question1 = ShapesQuestion(shapes: "shapes1_ori", shapesGrey: "shapes_Ask_Yellow")
-        let question2 = ShapesQuestion(shapes: "shapes_Ask_Blue", shapesGrey: "shapes2_ori")
-//        let question3 = ShapesQuestion(shapes: "shapes3_ori", shapesGrey: "shapes_Ask_Yellow")
-//        let question4 = ShapesQuestion(shapes: "shapes_Ask_Blue", shapesGrey: "shapes4_ori")
-//        let question5 = ShapesQuestion(shapes: "shapes5_ori", shapesGrey: "shapes_Ask_Yellow")
-//        let question6 = ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes6_ori")
-//        let question7 = ShapesQuestion(shapes: "shapes7_ori", shapesGrey: "shapes_Ask_Blue_Top")
-//        let question8 = ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes8_ori")
-//        let question9 = ShapesQuestion(shapes: "shapes9_ori", shapesGrey: "shapes_Ask_Blue_Top")
-//        let question10 = ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes10_ori")
-        
-        questionShapes.append(question1)
-        questionShapes.append(question2)
-//        questionShapes.append(question3)
-//        questionShapes.append(question4)
-//        questionShapes.append(question5)
-//        questionShapes.append(question6)
-//        questionShapes.append(question7)
-//        questionShapes.append(question8)
-//        questionShapes.append(question9)
-//        questionShapes.append(question10)
+        questionShapes.append(ShapesQuestion(shapes: "shapes1_ori", shapesGrey: "shapes_Ask_Blue_Top"))           // Q1
+        questionShapes.append(ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes2_ori"))             // Q2
+        questionShapes.append(ShapesQuestion(shapes: "shapes3_ori", shapesGrey: "shapes_Ask_Blue_Top"))           // Q3
+        questionShapes.append(ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes4_ori"))             // Q4
+        questionShapes.append(ShapesQuestion(shapes: "shapes5_ori", shapesGrey: "shapes_Ask_Blue_Top"))           // Q5
+        questionShapes.append(ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes6_ori"))       // Q6
+//        questionShapes.append(ShapesQuestion(shapes: "shapes7_ori", shapesGrey: "shapes_Ask_Blue_Top"))       // Q7
+//        questionShapes.append(ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes8_ori"))     // Q8
+//        questionShapes.append(ShapesQuestion(shapes: "shapes9_ori", shapesGrey: "shapes_Ask_Blue_Top"))       //  Q9
+//        questionShapes.append(ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes10_ori"))    // Q10
     }
     
     func setImageQuestionView(currentQuestion: Int){

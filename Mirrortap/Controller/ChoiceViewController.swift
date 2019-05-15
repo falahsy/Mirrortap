@@ -35,27 +35,16 @@ class ChoiceViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     func createShapesObject() {
-        let shape1 = ShapesModel(shapesMirror: "shapes1_mirror", choice1: "shapes1_choiceX", choice2: "shapes1_choiceY")
-        let shape2 = ShapesModel(shapesMirror: "shapes2_mirror", choice1: "shapes2_choiceX", choice2: "shapes2_choiceY")
-//        let shape3 = ShapesModel(shapesMirror: "shapes3_mirror", choice1: "shapes3_choiceX", choice2: "shapes3_choiceY")
-//        let shape4 = ShapesModel(shapesMirror: "shapes4_mirror", choice1: "shapes4_choiceX", choice2: "shapes4_choiceY")
-//        let shape5 = ShapesModel(shapesMirror: "shapes5_mirror", choice1: "shapes5_choiceX", choice2: "shapes5_choiceY")
-//        let shape6 = ShapesModel(shapesMirror: "shapes6_mirror", choice1: "shapes6_choiceX", choice2: "shapes6_choiceY")
-//        let shape7 = ShapesModel(shapesMirror: "shapes7_mirror", choice1: "shapes7_choiceX", choice2: "shapes7_choiceY")
-//        let shape8 = ShapesModel(shapesMirror: "shapes8_mirror", choice1: "shapes8_choiceX", choice2: "shapes8_choiceY")
-//        let shape9 = ShapesModel(shapesMirror: "shapes9_mirror", choice1: "shapes9_choiceX", choice2: "shapes9_choiceY")
-//        let shape10 = ShapesModel(shapesMirror: "shapes10_mirror", choice1: "shapes10_choiceX", choice2: "shapes10_choiceY")
-        
-        shapesModel.append(shape1)
-        shapesModel.append(shape2)
-//        shapesModel.append(shape3)
-//        shapesModel.append(shape4)
-//        shapesModel.append(shape5)
-//        shapesModel.append(shape6)
-//        shapesModel.append(shape7)
-//        shapesModel.append(shape8)
-//        shapesModel.append(shape9)
-//        shapesModel.append(shape10)
+        shapesModel.append(ShapesModel(shapesMirror: "shapes1_mirror", choice1: "shapes1_choiceX", choice2: "shapes1_choiceY"))         // Q1
+        shapesModel.append(ShapesModel(shapesMirror: "shapes2_mirror", choice1: "shapes2_choiceX", choice2: "shapes2_choiceY"))         // Q2
+        shapesModel.append(ShapesModel(shapesMirror: "shapes3_mirror", choice1: "shapes3_choiceX", choice2: "shapes3_choiceY"))         // Q3
+        shapesModel.append(ShapesModel(shapesMirror: "shapes4_mirror", choice1: "shapes4_choiceX", choice2: "shapes4_choiceY"))         // Q4
+        shapesModel.append(ShapesModel(shapesMirror: "shapes5_mirror", choice1: "shapes5_choiceX", choice2: "shapes5_choiceY"))         // Q5
+        shapesModel.append(ShapesModel(shapesMirror: "shapes6_mirror", choice1: "shapes6_choiceX", choice2: "shapes6_choiceY"))         // Q6
+//        shapesModel.append(ShapesModel(shapesMirror: "shapes7_mirror", choice1: "shapes7_choiceX", choice2: "shapes7_choiceY"))       // Q7
+//        shapesModel.append(ShapesModel(shapesMirror: "shapes8_mirror", choice1: "shapes8_choiceX", choice2: "shapes8_choiceY"))       // Q8
+//        shapesModel.append(ShapesModel(shapesMirror: "shapes9_mirror", choice1: "shapes9_choiceX", choice2: "shapes9_choiceY"))       // Q9
+//        shapesModel.append(ShapesModel(shapesMirror: "shapes10_mirror", choice1: "shapes10_choiceX", choice2: "shapes10_choiceY"))    // Q10
     }
     
     
@@ -121,8 +110,11 @@ class ChoiceViewController: UIViewController, AVAudioPlayerDelegate {
     func validateAnswerToPlaySound(button: UIButton){
         if checkAnswer() == true {
             playAudioFile(audioName: "correct")
+            button.pulsate()
             button.flash()
-            nextShapes()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                self.nextShapes()
+            }
         } else {
             UIDevice.vibrate()
             button.shakeAnimation()
@@ -141,9 +133,9 @@ class ChoiceViewController: UIViewController, AVAudioPlayerDelegate {
         self.choiceB_Button = choiceC_Button
         self.choiceC_Button = tempButton
         
-        self.choiceA_Button.rotate()
-        self.choiceB_Button.rotate()
-        self.choiceC_Button.rotate()
+        self.choiceA_Button.rotateRight()
+        self.choiceB_Button.rotateLeft()
+        self.choiceC_Button.rotateRight()
     }
     
     
@@ -245,29 +237,39 @@ extension UIButton {
     
     // tengah ke atas
     func middleToTop() {
-        UIView.animate(withDuration: 1.5, animations: {
+        UIView.animate(withDuration: 1.5, delay: 1.5, options: .init(), animations: {
             self.frame.origin.y -= 160
         }, completion: nil)
     }
     
     // atas ke bawah
     func topToBottom() {
-        UIView.animate(withDuration: 1.5, animations: {
+        UIView.animate(withDuration: 1.5, delay: 1.5, options: .init(), animations: {
             self.frame.origin.y += 320
         }, completion: nil)
     }
     
     // bawah ke tengah
     func bottomToMiddle() {
-        UIView.animate(withDuration: 1.5, animations: {
+        UIView.animate(withDuration: 1.5, delay: 1.5, options: .init(), animations: {
             self.frame.origin.y -= 160
         }, completion: nil)
     }
     
-    func rotate() {
+    func rotateLeft() {
         UIView.animate(withDuration: 1.5, animations: {
             if self.transform == .identity {
                 self.transform = CGAffineTransform(rotationAngle: -0.999*CGFloat(Double.pi))
+            } else {
+                self.transform = .identity
+            }
+        }, completion: nil)
+    }
+    
+    func rotateRight() {
+        UIView.animate(withDuration: 1.5, animations: {
+            if self.transform == .identity {
+                self.transform = CGAffineTransform(rotationAngle: 0.999*CGFloat(Double.pi))
             } else {
                 self.transform = .identity
             }
