@@ -17,6 +17,7 @@ class ChoiceViewController: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet weak var choiceB_Button: UIButton!
     @IBOutlet weak var choiceC_Button: UIButton!
     @IBOutlet weak var restartButton: UIButton!
+    @IBOutlet weak var showAnswerButton: UIButton!
     
     var audioPlayer: AVAudioPlayer?
     
@@ -32,15 +33,16 @@ class ChoiceViewController: UIViewController, AVAudioPlayerDelegate {
         setButtonImage(index: self.currentQuestionChoice)
         
         restartButton.isHidden = true
+        showAnswerButton.isHidden = true
     }
     
     func createShapesObject() {
         shapesModel.append(ShapesModel(shapesMirror: "shapes1_mirror", choice1: "shapes1_choiceX", choice2: "shapes1_choiceY"))         // Q1
         shapesModel.append(ShapesModel(shapesMirror: "shapes2_mirror", choice1: "shapes2_choiceX", choice2: "shapes2_choiceY"))         // Q2
         shapesModel.append(ShapesModel(shapesMirror: "shapes3_mirror", choice1: "shapes3_choiceX", choice2: "shapes3_choiceY"))         // Q3
-        shapesModel.append(ShapesModel(shapesMirror: "shapes4_mirror", choice1: "shapes4_choiceX", choice2: "shapes4_choiceY"))         // Q4
-        shapesModel.append(ShapesModel(shapesMirror: "shapes5_mirror", choice1: "shapes5_choiceX", choice2: "shapes5_choiceY"))         // Q5
-        shapesModel.append(ShapesModel(shapesMirror: "shapes6_mirror", choice1: "shapes6_choiceX", choice2: "shapes6_choiceY"))         // Q6
+//        shapesModel.append(ShapesModel(shapesMirror: "shapes4_mirror", choice1: "shapes4_choiceX", choice2: "shapes4_choiceY"))         // Q4
+//        shapesModel.append(ShapesModel(shapesMirror: "shapes5_mirror", choice1: "shapes5_choiceX", choice2: "shapes5_choiceY"))         // Q5
+//        shapesModel.append(ShapesModel(shapesMirror: "shapes6_mirror", choice1: "shapes6_choiceX", choice2: "shapes6_choiceY"))         // Q6
 //        shapesModel.append(ShapesModel(shapesMirror: "shapes7_mirror", choice1: "shapes7_choiceX", choice2: "shapes7_choiceY"))       // Q7
 //        shapesModel.append(ShapesModel(shapesMirror: "shapes8_mirror", choice1: "shapes8_choiceX", choice2: "shapes8_choiceY"))       // Q8
 //        shapesModel.append(ShapesModel(shapesMirror: "shapes9_mirror", choice1: "shapes9_choiceX", choice2: "shapes9_choiceY"))       // Q9
@@ -110,9 +112,19 @@ class ChoiceViewController: UIViewController, AVAudioPlayerDelegate {
     func validateAnswerToPlaySound(button: UIButton){
         if checkAnswer() == true {
             playAudioFile(audioName: "correct")
-            button.pulsate()
-            button.flash()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            if self.currentQuestionChoice == shapesModel.count {
+                button.flash()
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+//                    self.nextShapes()
+//                }
+//                choiceA_Button.isEnabled = false
+//                choiceB_Button.isEnabled = false
+//                choiceC_Button.isEnabled = false
+            } else {
+                button.pulsate()
+                button.flash()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 self.nextShapes()
             }
         } else {
@@ -143,7 +155,10 @@ class ChoiceViewController: UIViewController, AVAudioPlayerDelegate {
     func nextShapes() {
         if self.currentQuestionChoice == shapesModel.count {
             self.restartButton.isHidden = false
+            self.showAnswerButton.isHidden = false
+
             self.restartButton.pulsate()
+            self.showAnswerButton.pulsate()
         } else {
             self.currentQuestionChoice += 1
             self.performSegue(withIdentifier: "backToQuestion", sender: self)
@@ -151,9 +166,11 @@ class ChoiceViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let dest = segue.destination as! ViewController
-        
-        dest.currentQuestion = self.currentQuestionChoice
+        if segue.identifier == "backToQuestion" {
+            let dest = segue.destination as! ViewController
+            
+            dest.currentQuestion = self.currentQuestionChoice
+        }
     }
     
     func startOver(){

@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
 
     var currentQuestion: Int = 1
+    var audioPlayer: AVAudioPlayer?
     
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet var questionImageView: UIImageView!
@@ -22,7 +24,7 @@ class ViewController: UIViewController {
     
     var timeRunning = false
     var timeCounter: Timer = Timer()
-    var timer = 5
+    var timer = 4
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,9 +41,9 @@ class ViewController: UIViewController {
         questionShapes.append(ShapesQuestion(shapes: "shapes1_ori", shapesGrey: "shapes_Ask_Blue_Top"))         // Q1
         questionShapes.append(ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes2_ori"))       // Q2
         questionShapes.append(ShapesQuestion(shapes: "shapes3_ori", shapesGrey: "shapes_Ask_Blue_Top"))         // Q3
-        questionShapes.append(ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes4_ori"))       // Q4
-        questionShapes.append(ShapesQuestion(shapes: "shapes5_ori", shapesGrey: "shapes_Ask_Blue_Top"))         // Q5
-        questionShapes.append(ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes6_ori"))       // Q6
+//        questionShapes.append(ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes4_ori"))       // Q4
+//        questionShapes.append(ShapesQuestion(shapes: "shapes5_ori", shapesGrey: "shapes_Ask_Blue_Top"))         // Q5
+//        questionShapes.append(ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes6_ori"))       // Q6
 //        questionShapes.append(ShapesQuestion(shapes: "shapes7_ori", shapesGrey: "shapes_Ask_Blue_Top"))       // Q7
 //        questionShapes.append(ShapesQuestion(shapes: "shapes_Ask_Yellow_Top", shapesGrey: "shapes8_ori"))     // Q8
 //        questionShapes.append(ShapesQuestion(shapes: "shapes9_ori", shapesGrey: "shapes_Ask_Blue_Top"))       //  Q9
@@ -76,6 +78,7 @@ class ViewController: UIViewController {
     }
     
     @objc func counting(){
+        playAudioFile(audioName: "timer")
         
         if currentQuestion % 2 == 1 {
             mirrorImageView.flash()
@@ -85,6 +88,7 @@ class ViewController: UIViewController {
         
         timer -= 1
         if timer == 0 {
+            self.audioPlayer?.stop()
             timeCounter.invalidate()
             timeRunning = true
             
@@ -100,6 +104,23 @@ class ViewController: UIViewController {
         let dest = segue.destination as! ChoiceViewController
         
         dest.currentQuestionChoice = self.currentQuestion
+    }
+    
+    
+    
+    func playAudioFile(audioName: String) {
+        if let audioPlayer = audioPlayer, audioPlayer.isPlaying { audioPlayer.stop() }
+        
+        guard let soundURL = Bundle.main.url(forResource: audioName, withExtension: "mp3") else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default)
+            try AVAudioSession.sharedInstance().setActive(true)
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+            audioPlayer?.play()
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
 }
 

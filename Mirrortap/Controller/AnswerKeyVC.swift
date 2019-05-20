@@ -9,14 +9,25 @@
 import UIKit
 
 class AnswerKeyVC: UIViewController {
-
+    @IBOutlet weak var restartButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        restartButton.pulsate()
+        restartButton.flash()
     }
     
-
+    @IBAction func restart(_ sender: UIButton) {
+        performSegue(withIdentifier: "restartSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let dest = segue.destination as? ViewController
+        
+        dest?.currentQuestion = 1
+    }
     /*
     // MARK: - Navigation
 
